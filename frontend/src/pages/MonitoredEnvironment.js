@@ -7,6 +7,7 @@ import CardMonitored from '../components/CardMonitored';
 import CircularProgress from '@mui/material/CircularProgress';
 import { deleteLeitos, getLeitos } from '../services/serviceApi';
 import { useNavigate } from 'react-router-dom';
+import Paper from '@mui/material/Paper';
  
 
 const MonitoredEnvironmente = () => {
@@ -57,8 +58,10 @@ const MonitoredEnvironmente = () => {
 
   return (
     <Container maxWidth="md" sx={{ textAlign: 'center' }}>
+      <Paper sx={{ padding: 2, marginTop: 2 }}>
 
-      <Typography variant="h4" component="div" sx={{ marginBottom: 1 }}>
+
+      <Typography variant="h4" component="div" sx={{ paddingTop: 2 }}>
         Monitoramentos
       </Typography>
       <Typography variant="body" component="div" sx={{ mt: 1, marginLeft: 2, color: '#888888' }}>
@@ -82,6 +85,7 @@ const MonitoredEnvironmente = () => {
           }
         </Grid>
       }
+      </Paper>
     </Container>
   );
 }

@@ -24,17 +24,20 @@ const SignUpSide = ({setValue}) => {
 
   const navigate = useNavigate();
 
-  const handleRegister = (data, e) => {
-    e.preventDefault();
-    console.log(JSON.stringify(data))
-
+  const handleRegister = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
     setMessage("");
     setLoading(true);
 
-    if (JSON.stringify(data) !== null) {
-     AuthserveceApi.registerUser(data.cpf, data.telefone, data.name, data.email, data.password, data.confPassword).then(
+    
+     AuthserveceApi.registerUser(data.get('cpf'), data.get('telefone'), data.get('name'), data.get('email'), data.get('password'), data.get('confPassword')).then(
         () => {
-          AuthserveceApi.login(data.email, data.password).then(
+          AuthserveceApi.login(data.get('email'), data.get('password')).then(
             () =>{
               navigate("/wellcome");
               window.location.reload();
@@ -67,40 +70,39 @@ const SignUpSide = ({setValue}) => {
           setMessage(resMessage);
         }
       );
-    } else {
-      setLoading(false);
-    }
+   
 
 
   };
 
   return (
 
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    
+      
       <Box
         sx={{
-          marginTop: 5,
+          marginTop: 0,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{  bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
+        <Box component="form"  onSubmit={handleRegister} sx={{ mt: 1 }}>
+          
               <TextField
-                required
                 variant="standard"
+                margin="normal"
+                required
                 fullWidth
                 id="cpf"
                 label="CPF"
+                name="cpf"
                 {...register("cpf", {
                   required: {
                     value: true,
@@ -114,12 +116,13 @@ const SignUpSide = ({setValue}) => {
                 error={Boolean(errors.cpf)}
                 helperText={errors.cpf?.message}
               />
-            </Grid>
-            <Grid item xs={12}>
+           
               <TextField
-                required
-                variant="standard"
-                fullWidth
+               variant="standard"
+               margin="normal"
+               required
+               fullWidth
+                name="name"
                 id="name"
                 label="Nome"
                 {...register("name", {
@@ -135,12 +138,13 @@ const SignUpSide = ({setValue}) => {
                 error={Boolean(errors.name)}
                 helperText={errors.name?.message}
               />
-            </Grid>
-            <Grid item xs={12}>
+            
               <TextField
-                required
-                variant="standard"
-                fullWidth
+               variant="standard"
+               margin="normal"
+               required
+               fullWidth
+                name="telefone"
                 id="telefone"
                 label="Telefone"
                 {...register("telefone", {
@@ -157,12 +161,13 @@ const SignUpSide = ({setValue}) => {
                 helperText={errors.telefone?.message}
 
               />
-            </Grid>
-            <Grid item xs={12}>
+            
               <TextField
-                required
-                variant="standard"
-                fullWidth
+               variant="standard"
+               margin="normal"
+               required
+               fullWidth
+                name="email"
                 id="email"
                 label="Email"
                 autoComplete="email"
@@ -180,12 +185,14 @@ const SignUpSide = ({setValue}) => {
                 helperText={errors.email?.message}
 
               />
-            </Grid>
-            <Grid item xs={12}>
+            
+            
               <TextField
-                required
                 variant="standard"
+                margin="normal"
+                required
                 fullWidth
+                name="password"
                 label="Criar senha"
                 type="password"
                 id="password"
@@ -203,12 +210,14 @@ const SignUpSide = ({setValue}) => {
                 helperText={errors.password?.message}
 
               />
-            </Grid>
-            <Grid item xs={12}>
+           
+            
               <TextField
-                required
-                variant="standard"
-                fullWidth
+               variant="standard"
+               margin="normal"
+               required
+               fullWidth
+                name="confPassword"
                 label="Confirmar senha"
                 type="password"
                 id="confPassword"
@@ -226,13 +235,15 @@ const SignUpSide = ({setValue}) => {
                 helperText={errors.confPassword?.message}
 
               />
-            </Grid>
-          </Grid>
+           
           <Button
+            
+            margin="normal"
+            required
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            onClick={handleSubmit(handleRegister)}
+            type="submit"
           >
             {loading ? <CircularProgress /> : "Cadastrar Usuário"}
           </Button>
@@ -247,7 +258,7 @@ const SignUpSide = ({setValue}) => {
           </Grid>
         </Box>
       </Box>
-    </Container>
+    
 
   );
 }

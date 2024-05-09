@@ -23,14 +23,14 @@ export async function LoginAirPure(req,res){
         body: loginBody
     })
     
-    res.status(airPureResponse.status)
-
+    // res.status(airPureResponse.status)
+    console.log("login airpure")
     //console.log(airPureResponse)
 
     let body = await airPureResponse.json()
     //res.json(body)
     TOKEN = body.session_token
-    res.json(body)
+    // res.json(body)
    // return TOKEN
     //console.log(TOKEN)
 }

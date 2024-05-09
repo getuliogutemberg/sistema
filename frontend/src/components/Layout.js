@@ -17,29 +17,22 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import DisplaySettingsOutlinedIcon from '@mui/icons-material/DisplaySettingsOutlined';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import MenuIcon from '@mui/icons-material/Menu';
+
+import LoginIcon from '@mui/icons-material/Login';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 const drawerWidth = 240;
 
 const Layout = () => {
-
+  const user = JSON.parse(localStorage.getItem('user'));
   const [openDrawer, setOpenDrawer] = React.useState(false);
   
   const navigate = useNavigate();
 
   const menuItem = [
 
-    {
-      text: 'Criar Monitoramento',
-      icon: <DisplaySettingsOutlinedIcon/>,
-      path:  "/novo-monitoramento"
-    },
+ 
 
-    {
-      text: 'Monitor',
-      icon: <MonitorHeartOutlinedIcon/>,
-      path:  '/monitor'
-  },
 
     {
         text: 'Relatório',
@@ -47,8 +40,19 @@ const Layout = () => {
         path:  '/report'
     },
     
+    {
+      text: 'Monitor',
+      icon: <MonitorHeartOutlinedIcon/>,
+      path:  '/monitor'
+  },
+    
   ]
   const menuItemSub = [
+    {
+      text: 'Criar Monitoramento',
+      icon: <DisplaySettingsOutlinedIcon/>,
+      path:  "/novo-monitoramento"
+    },
 
     {
       text: 'Usuários',
@@ -108,14 +112,21 @@ const Layout = () => {
             </List>
           <Divider />
           <List>
-                {menuItemSub.map(item =>(    
+                {user ? menuItemSub.map(item =>(    
                   <ListItemButton key={item.text} onClick={() => navigate(item.path)}>
                   <ListItemIcon>
                    {item.icon}
                   </ListItemIcon>
                   <ListItemText primary={item.text} />
                 </ListItemButton>
-              ))}
+              )): 
+              <ListItemButton key={'Login'} onClick={() => navigate('/')}>
+              <ListItemIcon>
+               <LoginIcon/>
+              </ListItemIcon>
+              <ListItemText primary={"Login"} />
+            </ListItemButton>
+              }
             </List>
         </Box>
       </Drawer>

@@ -101,7 +101,7 @@ const CreateMonitor = () => {
                 <Typography variant="h4" component="div" sx={{ paddingTop: 2 }}>
                     Criar Monitoramento
                 </Typography>
-                <Typography variant="body" component="div">
+                <Typography variant="body" component="div" sx={{ mt: 1, marginLeft: 2, color: '#888888' }}>
                     Preencha o formulário para configurar os parâmetros de monitoramento.
                 </Typography>
 

@@ -84,11 +84,11 @@ const NavBar = () =>{
 
     return(
         <Box sx={{ flexGrow: 1 }}>  
-         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 ,backgroundColor: 'highlight'}} variant="dense">
+         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 ,backgroundColor: '#24474E'}} variant="dense">
             <Toolbar>
                 
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 , textAlign: 'left',ml:5}}>
-                   <a href="/" className='buttonSistema'><strong>{"Sistema"}</strong></a> 
+                   <a href="/report" className='buttonSistema'><strong>{"Sistema"}</strong></a> 
                 </Typography>
                {currentUser ? (
                 <>

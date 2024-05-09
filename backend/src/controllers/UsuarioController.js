@@ -8,6 +8,7 @@ import 'dotenv/config';
 const saltRounds = 10;
 
 export async function getUserAll(req, res) {
+    
     try {
         const users = await Usuario.findAll({
             attributes: { exclude: ['password'] },
@@ -112,6 +113,7 @@ export async function userUpdate(req, res) {
 
 
 export async function Register(req, res) {
+    console.log(req.body)
     const { cpf, telefone, name, email, roles, password, confPassword } = req.body;
 
     const validaCPF = (cpf) => {
@@ -200,7 +202,8 @@ export async function Login(req, res) {
     })
         .then(user => {
             if (!user) {
-                return res.status(404).send({ message: "usuário não encontrado" });
+                
+                return res.status(404).send({ message: "Usuário não encontrado" });
             }
             var passwordIsvalid = bcrypt.compareSync(
                 req.body.password,
@@ -242,14 +245,15 @@ export async function Login(req, res) {
 }
 
 export async function Logout(req, res) {
-    console.log(req.body)
+    // console.log(req.body)
 
     await Usuario.findOne({
         where: {
             email: req.body.email
         }
     }).then((user) => {
-        user.update({ isConnected: false })
+
+        user?.update({ isConnected: false })
         res.send({ message: "Logout efetuado com sucesso !" });
     },
         error => {

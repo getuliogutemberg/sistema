@@ -56,13 +56,14 @@ const SignInSide = ({setValue}) => {
   return (
     <Box
       sx={{
-        mt: 5,
+        mt: 0,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        
       }}
     >
-      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+      <Avatar sx={{ bgcolor: 'secondary.main' }}>
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">

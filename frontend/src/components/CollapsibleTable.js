@@ -127,8 +127,8 @@ export default function CollapsibleTable() {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell><strong>Nome Leitos</strong></TableCell>
-            <TableCell align="right"><strong>IdAirpure</strong></TableCell>
+            <TableCell><strong>Nome</strong></TableCell>
+            <TableCell align="right"><strong> Id AirPure</strong></TableCell>
             <TableCell align="right"><strong>Quantidade de Alertas</strong></TableCell>
 
           </TableRow>

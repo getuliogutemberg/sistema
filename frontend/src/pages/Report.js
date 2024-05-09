@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { Box, Container } from '@mui/system';
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { faker } from '@faker-js/faker';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
+  ArcElement,
   LineElement,
   Title,
   Tooltip,
   Legend,
+  BarElement,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import CollapsibleTable from '../components/CollapsibleTable'
@@ -20,18 +22,25 @@ import Tab from '@mui/material/Tab';
 import { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { getRelatorios } from '../services/serviceApi';
-
+import { Paper } from '@mui/material';
+import { Bar } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
+import { Bubble } from 'react-chartjs-2';
 
 // Dashboard 
 ChartJS.register(
   CategoryScale,
   LinearScale,
+  BarElement,
   PointElement,
   LineElement,
+  ArcElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+
 );
+
 
 
 const options = {
@@ -143,7 +152,7 @@ const rows = reports.map((row,index)=>({
 
 const columns = [
   { field: 'idRelatorio', headerName: 'IdRelatorio', width: 150 },
-  { field: 'idLeito', headerName: 'IdLeito', width: 150 },
+  { field: 'id', headerName: 'Id', width: 150 },
   { field: 'idAirPure', headerName: 'IdAirPure', width: 150 },
   { field: 'nome', headerName: 'Nome', width: 150 },
   { field: 'co2', headerName: 'CO2', width: 150 },
@@ -155,11 +164,105 @@ const columns = [
   { field: 'createdAt', headerName: 'Data de criação', width: 150 },
   { field: 'updatedAt', headerName: 'Data de update', width: 150 },
 ];
+ const optionsBar = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: true,
+      text: 'Chart.js Bar Chart',
+    },
+  },
+};
 
+
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const dataBar = {
+  labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+    {
+      label: 'Dataset 2',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+  ],
+};
+
+const dataPie = {
+  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  datasets: [
+    {
+      label: '# of Votes',
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)',
+      ],
+      borderWidth: 1,
+    },
+  ],
+};
+
+const optionsBubble = {
+  scales: {
+    y: {
+      beginAtZero: true,
+    },
+  },
+};
+const dataBubble = {
+  datasets: [
+    {
+      label: 'Red dataset',
+      data: Array.from({ length: 50 }, () => ({
+        x: faker.datatype.number({ min: -100, max: 100 }),
+        y: faker.datatype.number({ min: -100, max: 100 }),
+        r: faker.datatype.number({ min: 5, max: 20 }),
+      })),
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+    {
+      label: 'Blue dataset',
+      data: Array.from({ length: 50 }, () => ({
+        x: faker.datatype.number({ min: -100, max: 100 }),
+        y: faker.datatype.number({ min: -100, max: 100 }),
+        r: faker.datatype.number({ min: 5, max: 20 }),
+      })),
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+  ],
+};
   return (
-    <>
-      <Container maxWidth="lg">
-        <Box sx={{ width: '100%' }}>
+    
+      <Container maxWidth="xl" sx={{ textAlign: 'center' }}>
+         <Paper sx={{ padding: 2, marginTop: 2 }}>
+         <Typography variant="h4" component="div" sx={{ paddingTop: 2 }}>
+        Relatórios
+      </Typography>
+      <Typography variant="body" component="div" sx={{ mt: 1, marginLeft: 2, color: '#888888' }}>
+        Aqui você pode gerar relatórios.
+      </Typography>
+        
           <Box>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
               <Tab label="Dashboard" {...a11yProps(0)} />
@@ -169,9 +272,33 @@ const columns = [
           </Box>
 
           <TabPanel value={value} index={0}>
-            <Box>
-              <Line options={options} data={data} />
-            </Box>
+            <Grid container spacing={0}>
+              <Grid item xs={12}  md={6}>
+                <Typography variant="body" component="div" sx={{  color: '#888888' }}>
+                  
+                  <Line options={options} data={data} />
+                </Typography>
+              </Grid>
+              <Grid item xs={12}  md={6}>
+                <Typography variant="body" component="div" sx={{ color: '#888888' }}>
+                 
+                <Bar options={optionsBar} data={dataBar} />;
+                </Typography>
+              </Grid>
+              <Grid item xs={12}  md={6}>
+                <Typography variant="body" component="div" sx={{  color: '#888888' }}>
+                  
+                  <Pie data={dataPie} />;
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Typography variant="body" component="div" sx={{ color: '#888888' }}>
+                  
+                  <Bubble options={optionsBubble} data={dataBubble} />;
+                </Typography>
+              </Grid>
+              
+            </Grid>
           </TabPanel>
 
           <TabPanel value={value} index={1}>
@@ -192,9 +319,10 @@ const columns = [
             </Box>
           </TabPanel>
 
-        </Box>
+       
+        </Paper>
       </Container>
-    </>
+    
   );
 }
 

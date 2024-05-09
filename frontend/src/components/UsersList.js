@@ -13,7 +13,7 @@ import { Box } from '@mui/system';
 const ITEM_HEIGHT = 40;
 
 const UsersList = () => {
-    const [leitos, setLeitos] = useState([]);
+    const [users, setUsers] = useState([]);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -25,43 +25,44 @@ const UsersList = () => {
     };
 
 
-    const getLeitos = async () => {
-        let response = await axios.get(`http://192.168.1.17:8080/api/leitos`,)
-        return setLeitos(response.data);
+    const getUsers = async () => {
+        let response = await axios.get(`http://localhost:8080/users`)
+        console.log(response.data)
+        return setUsers(response.data);
     }
 
     useEffect(() => {
-        getLeitos();
+        getUsers();
     }, [])
 
-    const rows = leitos.map((row, index) => ({
-        id: index,
-        idLeito: row.idLeito,
-        idAirPure: row.idAirPure,
-        nome: row.nome,
-        limitCo2: row.limitCo2,
-        limitCOVT: row.limitCOVT,
-        limitLuminosidade: row.limitLuminosidade,
-        limitRuidoSonoro: row.limitRuidoSonoro,
-        limitTemperatura: row.limitTemperatura,
-        limitUmidade: row.limitUmidade,
-        createdAt: row.createdAt
+    const rows = users.map((row) => ({
+        cpf: row.cpf,
+        createdAt: row.createdAt,
+        email: row.email,
+        id: row.id,
+        isConnected: row.isConnected,
+        name: row.name,
+        roles: row.roles[0].name,
+        telefone: row.telefone,
+        updatedAt: row.updatedAt,
+        
+
 
 
     }));
 
 
     const columns = [
-        { field: 'idLeito', headerName: 'IdLeito', width: 150 },
-        { field: 'idAirPure', headerName: 'IdAirPure', width: 150 },
-        { field: 'nome', headerName: 'Nome', width: 150 },
-        { field: 'limitCo2', headerName: 'Valor limite CO2', width: 150 },
-        { field: 'limitCOVT', headerName: 'Valor limite COVT', width: 150 },
-        { field: 'limitLuminosidade', headerName: 'Valor limite Luminosidade', width: 150 },
-        { field: 'limitRuidoSonoro', headerName: 'Valor limite Ruido sonoro', width: 150 },
-        { field: 'limitTemperatura', headerName: 'Valor limite Temperatura', width: 150 },
-        { field: 'limitUmidade', headerName: 'Valor limite Umidade', width: 150 },
-        { field: 'createdAt', headerName: 'Data de criação', width: 150 },
+        { field: 'cpf', headerName: 'cpf', width: 150 },
+        { field: 'createdAt', headerName: 'createdAt', width: 150 },
+        { field: 'email', headerName: 'email', width: 150 },
+        { field: 'id', headerName: 'id', width: 150 },
+        { field: 'isConnected', headerName: 'isConnected', width: 150 },
+        { field: 'name', headerName: 'name', width: 150 },
+        { field: 'roles', headerName: 'roles', width: 150 },
+        { field: 'telefone', headerName: 'telefone', width: 150 },
+        { field: 'updatedAt', headerName: 'updatedAt', width: 150 },
+       
 
         {
             field: "action",
@@ -111,6 +112,8 @@ const UsersList = () => {
                 );
             },
         },
+
+        
     ];
 
 

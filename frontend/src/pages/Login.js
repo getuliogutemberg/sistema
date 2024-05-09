@@ -93,7 +93,7 @@ const Login = () => {
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
 
-                <Grid item xs={currentUser ? 12 : 12} sm={currentUser ? 12 : 12} md={currentUser ? 12 : 8} >
+                <Grid item  md={ 8 } sx={{ display: { xs: 'none' , md: 'block'}}} >
                     <Box
                         sx={{
                             mt: 15,
@@ -117,11 +117,11 @@ const Login = () => {
                     </Box>
                 </Grid>
 
-                {!currentUser && <Grid item xs={12} sm={12} md={4} component={Paper} elevation={6} square>
+                {!currentUser && <Grid item xs={12} md={4} component={Paper} elevation={6} square>
                <Box
                         sx={{
-                            my: 10,
-                            mx: 10,
+                            my: 0,
+                            mx: 0,
                             mt: 15,
                             display: 'flex',
                             flexDirection: 'column',

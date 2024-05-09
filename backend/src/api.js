@@ -33,8 +33,10 @@ app.use(function (req, res, next) {
     next();
 });
 
+
+LoginAirPure(); //iniciando o servidor air-pure
 //rotas para air-pure.js 
-app.post('/loginAirPure', LoginAirPure);
+// app.post('/loginAirPure', LoginAirPure);
 app.get('/infoAmbientes/:id', GetInfoAmbientes);
 app.get('/leiturasDia/:parametro/:idAmbiente/:data', GetLeiturasDia);
 app.get('/ultimaLeitura', GetUltimaLeitura);
@@ -49,7 +51,7 @@ app.delete('/api/leito/:id',verifyToken,isAdmin, apagarLeito);
 app.put('/api/leito/:id',verifyToken,isAdmin, atualizarLeito);
 
 //Usuários admin e equipe técnica
-app.get('/users',verifyToken,isAdmin, getUserAll);
+app.get('/users', getUserAll);
 app.get('/user/:id',verifyToken,isAdmin, getUserId);
 app.put('/userUpdate/id',verifyToken,isAdmin,userUpdate);
 app.delete('/user/:id',verifyToken,isAdmin,deleteUser);
