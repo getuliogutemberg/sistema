@@ -109,7 +109,7 @@ const UpdateLeito = () => {
                     error.message ||
                     error.toString();
                 setMessageError(resMessage);
-                setTimeout(() => window.location.reload(), 2000);
+                
 
             }
         );

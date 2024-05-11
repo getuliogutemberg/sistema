@@ -27,7 +27,7 @@ function App() {
             <Route path="/monitor" element={[<Layout/>,<MonitoredEnvironmente/>]}/>
             <Route path="/report" element={[<Layout/>,<Report/>]}/>
             <Route path="/users" element={[<Layout/>,<Users/>]}/>
-            <Route path="/setting" element={[<Layout/>,<Settings/>]}/>
+            <Route path="/setting" element={[<Layout/>,<Settings/>]} />
             <Route path="/notification" element={[<Layout/>,<Notifications/>]}/>
             <Route path="/leitoform-update/:id" element={[<Layout/>,<UpdateLeito/>]}/>
             <Route path="/users-update" element={[<Layout/>,<Account/>]}/>

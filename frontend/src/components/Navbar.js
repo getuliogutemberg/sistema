@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import AuthserveceApi from '../services/authService';
 import Link from '@mui/material/Link';
 
@@ -55,24 +55,23 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   
 
 const NavBar = () =>{
+  const location = useLocation();
     const [currentUser, setCurrentUser] = useState(undefined);
     const navigate = useNavigate();
 
     useEffect(()=>{
         const user = localStorage.getItem("user");
-        
         if(user){
             setCurrentUser(user);
         }
-
-        
-    },[]);
+    },[navigate]);
 
 
     const Logout = () => {
       AuthserveceApi.logout(localStorage.getItem("user")).then(()=>{
-        navigate("/")
-        window.location.reload();
+        setCurrentUser(undefined);
+        navigate(location.pathname === '/' ? 0 : '/');
+        
       },(error)=>{
         console.log(error)
       })
@@ -87,8 +86,8 @@ const NavBar = () =>{
          <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 ,backgroundColor: '#24474E'}} variant="dense">
             <Toolbar>
                 
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 , textAlign: 'left',ml:5}}>
-                   <a href="/report" className='buttonSistema'><strong>{"Sistema"}</strong></a> 
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 , textAlign: 'left',ml:location.pathname === '/' ? 0 : 5}}>
+                   <Button color="inherit" onClick={()=> navigate(location.pathname === '/' ? '/report' : '/')}><strong>{"Sistema"}</strong></Button> 
                 </Typography>
                {currentUser ? (
                 <>

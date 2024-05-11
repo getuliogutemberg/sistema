@@ -31,4 +31,4 @@ Usuario.belongsToMany(Role,{
 });
 
 
-Role.sync();
+Role.sync({ force: true });

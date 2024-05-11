@@ -174,11 +174,11 @@ export async function Register(req, res) {
                 })
                     .then(roles => {
                         user.setRoles(roles).then(() => {
-                            res.send({ message: "Usuario resgistrado com sucesso !" })
+                        res.send({ message: "Usuario resgistrado com sucesso !" })
                         });
                     });
             } else {
-                user.setRoles([1]).then(() => {
+                user.setRoles([2]).then(() => {
                     res.send({ message: "Usuario resgistrado com sucesso !" });
                 })
             }

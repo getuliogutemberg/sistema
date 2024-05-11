@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -7,7 +7,16 @@ import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
     const navigate = useNavigate();
-   
+    
+
+    useEffect(()=>{
+      const user = JSON.parse(localStorage.getItem("user"));
+      
+      if(user && user.roles.at() !== "ROLE_ADMIN"){
+          
+          navigate("/");
+      } 
+  },[navigate]);
      
     return (
         <Container maxWidth="sm" sx={{textAlign: 'center',color:'#888888'}}>

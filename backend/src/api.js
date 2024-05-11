@@ -11,11 +11,19 @@ import { cadastrarRelatorio, getRelatorio, getRelatorios, apagarRelatorio } from
 import { Role } from './models/RoleModel.js';
 import {checkDuplicateNameOrEmail, checkRolesExisted}  from './middleware/VerifySignUp.js';
 import { isAdmin, verifyToken } from './middleware/authJwt.js';
+import { Usuario } from './models/UsuarioModel.js';
+import bcrypt from "bcrypt";
+
+const saltRounds = 10;
 
 dotenv.config();
 
 //iniciando banco
-await conexao.sync({ force: true }).then(() => {
+await conexao.sync(
+   // { force: true } //forcando a recriação da tabela
+   { alter: true } //alterando a recriação da tabela
+//    {} //criando a tabela
+).then(() => {
     initial();
 });
 
@@ -80,7 +88,10 @@ app.listen(port, () => {
     console.log(`Server is running in the port: ${port}`)
 });
 
-function initial() {
+async function initial() {
+
+  
+    const hashPassword =  await bcrypt.hash("12345", await bcrypt.genSalt(10));
 
     Role.create({
         id: 1,
@@ -88,7 +99,7 @@ function initial() {
     });
     Role.create({
         id: 2,
-        name: "equipeTecnica"
-    });
+        name: "client"
+    });    
 
 }

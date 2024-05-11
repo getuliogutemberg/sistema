@@ -40,7 +40,7 @@ const SignUpSide = ({setValue}) => {
           AuthserveceApi.login(data.get('email'), data.get('password')).then(
             () =>{
               navigate("/wellcome");
-              window.location.reload();
+             
 
             },
             (error) => {

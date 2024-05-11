@@ -18,7 +18,7 @@ import { useState } from 'react';
 import SignInSide from '../components/SignInSide';
 import SignUpSide from '../components/SignUpSide';
 import AuthserveceApi from "../services/authService"
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 
 
@@ -61,6 +61,7 @@ function a11yProps(index) {
 }
 const Login = () => {
     const navigate = useNavigate();
+   
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -69,12 +70,12 @@ const Login = () => {
 
     const Logout = () => {
         AuthserveceApi.logout(localStorage.getItem("user")).then(()=>{
-          navigate("/")
-          window.location.reload();
-        },(error)=>{
-          console.log(error)
-        })
-        
+            setCurrentUser(undefined);
+            navigate(0)
+            
+          },(error)=>{
+            console.log(error)
+          })
         
       }
 
@@ -85,15 +86,18 @@ const Login = () => {
         if (user) {
           setCurrentUser(user);
         } 
+        else {
+          setCurrentUser(undefined);
+        }
     
-      }, []);
+      }, [ ]);
 
     return (
         <ThemeProvider theme={theme}>
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
 
-                <Grid item  md={ 8 } sx={{ display: { xs: 'none' , md: 'block'}}} >
+                <Grid item  md={ currentUser ? 12 : 8 } sx={{ display: { xs: currentUser ? 'visible' : 'none' , md: currentUser ? 'visible' : 'block'}}} >
                     <Box
                         sx={{
                             mt: 15,
@@ -113,7 +117,8 @@ const Login = () => {
                         <Box sx={{ borderRadius: '10px',   }}>
                             <img src={ImgSignin} alt="" style={{ height: '100%',maxHeight:'500px' ,width:'100%', maxWidth:'500px'}}/>
                         </Box>
-                    {currentUser && <Button onClick={() => Logout()} variant="contained" sx={{ mt: 15, }}>Sair</Button>}
+                    {/* {currentUser && <Button onClick={() => Logout()} variant="contained" sx={{ mt: 15, }}>Sair</Button>} */}
+                    {currentUser && <Button onClick={() => navigate('/report')} variant="contained" sx={{ mt: 15, }}>painel</Button>}
                     </Box>
                 </Grid>
 

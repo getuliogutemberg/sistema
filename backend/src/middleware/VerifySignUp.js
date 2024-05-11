@@ -32,7 +32,7 @@ export function checkDuplicateNameOrEmail(req, res, next) {
 };
 
 export function checkRolesExisted(req, res, next) {
-    const ROLES = ["admin", "equipeTecnica"];
+    const ROLES = ["admin", "client"];
     if (req.body.roles) {
         for (let i = 0; i < req.body.roles.length; i++) {
             if (!ROLES.includes(req.body.roles[i])) {

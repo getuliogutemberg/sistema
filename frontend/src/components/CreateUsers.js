@@ -40,7 +40,7 @@ const CreateUsers = (props) => {
             AuthserveceApi.registerUser(data.cpf, data.telefone, data.name, data.email, data.password, data.confPassword).then(
                 () => {
                     navigate("/wellcome");
-                    window.location.reload();
+                    
 
                 },
                 (error) => {

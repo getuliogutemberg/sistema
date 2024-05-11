@@ -31,11 +31,11 @@ const AccountProfileDetails = (props) => {
     setMessage("");
     setLoading(true);
 
-    if (JSON.stringify(data) !== {}) {
+    if (JSON.stringify(data) !== null) {
       AuthserveceApi.registerUser(data.cpf, data.telefone, data.name, data.email, data.password, data.confPassword).then(
         () => {
           navigate("/wellcome");
-          window.location.reload();
+          
 
         },
         (error) => {

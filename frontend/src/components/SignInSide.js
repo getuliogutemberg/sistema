@@ -39,8 +39,8 @@ const SignInSide = ({setValue}) => {
     AuthserveceApi.login(data.get('email'), data.get('password')).then(
       (res) => {
         console.log(res)
-        navigate("/wellcome");
-        window.location.reload();
+        res.roles.at() === "ROLE_ADMIN" ? navigate("/setting") : navigate("/report");
+        
 
       },
       (error) => {

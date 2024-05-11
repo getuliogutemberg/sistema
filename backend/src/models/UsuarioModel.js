@@ -38,7 +38,7 @@ export const Usuario = conexao.define('usuarios', {
 });
 
 //Cria tabela
-Usuario.sync();
+// Usuario.sync();
 
 //Força alteração na tabela
-//Usuario.sync({alter: true})
+Usuario.sync( { alter: true } ) 

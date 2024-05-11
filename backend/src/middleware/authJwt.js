@@ -42,13 +42,13 @@ export function isEquipeTecnica (req, res, next) {
     Usuario.findByPk(req.usuarioId).then(user => {
         user.getRoles().then(roles => {
             for (let i = 0; i < roles.length; i++){
-                if(roles[i].name === "equipeTecnica"){
+                if(roles[i].name === "client"){
                     next();
                     return;
                 }
             }
             res.status(403).send({
-                message: "Require equipetecnica Role!"
+                message: "Require client Role!"
             });
             return;
         });
